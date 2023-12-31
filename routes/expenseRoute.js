@@ -2,10 +2,11 @@ import express from "express";
 import expenseModel from "../models/expenseModel.js";
 import Response from "../utils/response.js";
 import { requireSignIn } from "../middlewares/authMiddleware.js";
+import categoryModel from "../models/categoryModel.js";
 
 export const getExpenseController = async (req, res) => {
   try {
-    const expenses = await orderModel.find({user: req.user._id}).populate("user");
+    const expenses = await categoryModel.find({user: req.user._id}).populate("user");
     res.json(expenses);
  } catch (error) {
      return res.status(500).send({

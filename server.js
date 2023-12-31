@@ -7,6 +7,7 @@ import expenseRoutes from './routes/expenseRoute.js';
 import categoryRoutes from './routes/categoryRoute.js';
 import path from 'path';
 import morgan from 'morgan';
+import { fileURLToPath } from 'url';
 
 // rest obj
 const app = express();
@@ -16,6 +17,10 @@ dotenv.config();
 
 // config db
 connectDb();
+
+// ES module fix
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // middlewares
 app.use(cors());

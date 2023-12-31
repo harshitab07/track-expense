@@ -1,6 +1,20 @@
 import express from "express";
 import expenseModel from "../models/expenseModel.js";
 import Response from "../utils/response.js";
+import { requireSignIn } from "../middlewares/authMiddleware.js";
+
+export const getExpenseController = async (req, res) => {
+  try {
+    const expenses = await orderModel.find({user: req.user._id}).populate("user");
+    res.json(expenses);
+ } catch (error) {
+     return res.status(500).send({
+         status: false,
+         message: 'Failed to get all expenses',
+         error
+     })
+ }
+}
 
 export const addExpenseController = async (req, res) => {
   try {
@@ -68,6 +82,7 @@ export const editExpenseController = async (req, res) => {
 
 const router = express.Router();
 
+router.post("/get-expenses", requireSignIn ,getExpenseController);
 router.post("/add-expense", addExpenseController);
 router.post("/remove-expense/:id", deleteExpenseController);
 router.post('/edit-expense/:id', editExpenseController);

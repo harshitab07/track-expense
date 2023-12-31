@@ -26,7 +26,7 @@ const Home = () => {
 
   const getAllExpenses = async () => {
     try {
-        const { data } = await axios.get(`/api/v1/expense/get-expense`);
+        const { data } = await axios.get(`/api/v1/expense/get-expenses`);
         if (data?.success) {
             setProducts(data.data);
         } else {

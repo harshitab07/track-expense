@@ -1,0 +1,24 @@
+.add-category-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: +1;
+}
+.add-category {
+    width: 20rem;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #dedede;
+}
+
+.add-category .btn-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}

@@ -2,17 +2,21 @@ import express from "express";
 import expenseModel from "../models/expenseModel.js";
 import Response from "../utils/response.js";
 import { requireSignIn } from "../middlewares/authMiddleware.js";
-import categoryModel from "../models/categoryModel.js";
 
 export const getExpenseController = async (req, res) => {
   try {
     console.log('API call getExpenseController');
-    const expenses = await categoryModel.find({user: req.user._id}).populate("user");
-    res.json(expenses);
+    const { email } = req.body;
+    const expenses = await expenseModel.find({ user: email });
+    return res.status(200).send({
+      success: true,
+      message: 'Successfully retrieved all expenses',
+      expenses
+  })
  } catch (error) {
   console.log('Failure in API call getExpenseController');
      return res.status(500).send({
-         status: false,
+         success: false,
          message: 'Failed to get all expenses',
          error
      })
@@ -41,7 +45,6 @@ export const addExpenseController = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "Expense added successfully!",
-      newExpense,
     });
   } catch (err) {
     console.log('Failure in call addExpenseController', { body: req?.body });
@@ -86,8 +89,8 @@ export const editExpenseController = async (req, res) => {
 const router = express.Router();
 
 router.post("/get-expenses", requireSignIn ,getExpenseController);
-router.post("/add-expense", addExpenseController);
-router.post("/remove-expense/:id", deleteExpenseController);
-router.post('/edit-expense/:id', editExpenseController);
+router.post("/add-expense", requireSignIn, addExpenseController);
+router.post("/delete-expense/:id", requireSignIn, deleteExpenseController);
+router.post('/edit-expense/:id', requireSignIn, editExpenseController);
 
 export default router;

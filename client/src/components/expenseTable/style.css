@@ -1,0 +1,23 @@
+.expense-table-overlay {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.expense-table {
+    width: 35rem;
+    max-height: 10rem;
+    overflow: auto;
+}
+
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.btn-group button {
+    max-width: 10rem;
+}

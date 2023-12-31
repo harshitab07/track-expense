@@ -14,13 +14,11 @@ const expenseSchema = new mongoose.Schema({
         required: true
     },
     category: {
-        type: mongoose.ObjectId,
-        ref: 'categories',
+        type: String,
         required: true
     },
     user: {
-        type: mongoose.ObjectId,
-        ref: 'users',
+        type: String,
         required: true
     },
 }, { timestamps: true });

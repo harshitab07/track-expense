@@ -4,12 +4,16 @@ import categoryModel from "../models/categoryModel.js";
 export const getCategoryController = async (req, res) => {
   try {
     console.log('API call getCategoryController');
-    const category = await categoryModel.find({});
-    res.json(category);
+    const categories = await categoryModel.find({});
+    return res.status(200).send({
+      success: true,
+      message: "Categories received successfully!",
+      categories
+    });
  } catch (error) {
     console.log('Failure in API call getCategoryController');
      return res.status(500).send({
-         status: false,
+         success: false,
          message: 'Failed to get all categories',
          error
      })
@@ -30,7 +34,7 @@ export const addCategoryController = async (req, res) => {
     }
 
     // save expense
-    const newCategory = await new categoryModel({
+    await new categoryModel({
       name
     }).save();
 
@@ -38,7 +42,6 @@ export const addCategoryController = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "Category added successfully!",
-      newCategory,
     });
   } catch (err) {
     console.log('Failure in call addCategoryController', { body: req?.body });

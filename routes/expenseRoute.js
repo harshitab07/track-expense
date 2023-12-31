@@ -6,9 +6,11 @@ import categoryModel from "../models/categoryModel.js";
 
 export const getExpenseController = async (req, res) => {
   try {
+    console.log('API call getExpenseController');
     const expenses = await categoryModel.find({user: req.user._id}).populate("user");
     res.json(expenses);
  } catch (error) {
+  console.log('Failure in API call getExpenseController');
      return res.status(500).send({
          status: false,
          message: 'Failed to get all expenses',

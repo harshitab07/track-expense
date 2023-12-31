@@ -4,7 +4,7 @@ import connectDb from './db.js';
 import cors from 'cors';
 import authRoutes from './routes/authRoute.js';
 import expenseRoutes from './routes/expenseRoute.js';
-// import categoryRoutes from './routes/categoryRoute.js';
+import categoryRoutes from './routes/categoryRoute.js';
 
 // rest obj
 const app = express();
@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/expense', expenseRoutes);
-// app.use('/api/v1/category', categoryRoutes);
+app.use('/api/v1/category', categoryRoutes);
 
 const port = process.env.PORT || 8080;
 

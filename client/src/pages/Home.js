@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Layout from '../components/layout/layout';
 import axios from 'axios';
 import { useAuth } from '../context/auth';
@@ -26,7 +26,7 @@ const Home = () => {
 
   const getAllExpenses = async () => {
     try {
-        const { data } = await axios.get(`/api/v1/expense/get-expenses`);
+        const { data } = await axios.post(`/api/v1/expense/get-expenses`);
         if (data?.success) {
             setProducts(data.data);
         } else {
@@ -45,11 +45,12 @@ useEffect(() => {
   } else {
     navigate('/login');
   } 
-}, [auth?.token]);
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   return (
     <Layout title='Home : My-Expense-Tracker'>
-
+      <ToastContainer />
     </Layout>
   )
 }

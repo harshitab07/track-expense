@@ -1,12 +1,13 @@
 import express from "express";
-import { requireSignIn } from "../middlewares/authMiddleware.js";
 import categoryModel from "../models/categoryModel.js";
 
 export const getCategoryController = async (req, res) => {
   try {
-    const category = await categoryModel.find();
+    console.log('API call getCategoryController');
+    const category = await categoryModel.find({});
     res.json(category);
  } catch (error) {
+    console.log('Failure in API call getCategoryController');
      return res.status(500).send({
          status: false,
          message: 'Failed to get all categories',
@@ -51,7 +52,7 @@ export const addCategoryController = async (req, res) => {
 
 const router = express.Router();
 
-router.post("/get-categories", requireSignIn ,getCategoryController);
+router.get("/get-categories", getCategoryController);
 router.post("/add-category", addCategoryController);
 
 export default router;

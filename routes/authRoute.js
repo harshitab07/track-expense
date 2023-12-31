@@ -5,7 +5,7 @@ import { comparePassword, hashPassword } from "../utils/helper.js";
 
 export const signupController = async (req, res) => {
   try {
-    console.log('API call signupController', { body: req?.body });
+    console.log('API call signupController');
     const { name, email, password, answer } = req.body;
 
     // validation
@@ -31,14 +31,14 @@ export const signupController = async (req, res) => {
       name, email, password: hashedPassword, answer
     }).save();
 
-    console.log('Success in API call signupController', { body: req?.body });
+    console.log('Success in API call signupController');
     return res.status(200).send({
       success: true,
       message: "User registered successfully!",
       newUser,
     });
   } catch (err) {
-    console.log('Failure in call signupController', { body: req?.body });
+    console.log('Failure in call signupController');
     res.status(500).send({
       success: false,
       message: "Error in registration",
@@ -49,7 +49,7 @@ export const signupController = async (req, res) => {
 
 export const loginController = async (req, res) => {
   try {
-    console.log('API call loginController', { body: req?.body });
+    console.log('API call loginController');
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -78,7 +78,7 @@ export const loginController = async (req, res) => {
       expiresIn: "7d",
     });
 
-    console.log('Success in API call loginController', { body: req?.body });
+    console.log('Success in API call loginController');
     return res.status(200).send({
       success: true,
       message: "Logged in successfully!",
@@ -90,7 +90,7 @@ export const loginController = async (req, res) => {
       token,
     });
   } catch (err) {
-    console.log('Failure in call loginController', { body: req?.body });
+    console.log('Failure in call loginController');
     res.status(500).send({
       success: false,
       message: "Error in login",
@@ -102,6 +102,7 @@ export const loginController = async (req, res) => {
 // change password controller
 export const forgotPasswordController = async (req, res) => {
     try {
+      console.log('API call forgotPasswordController');
         const { email, password, answer } = req.body;
 
         if (!email || !password || !answer) {
@@ -129,11 +130,13 @@ export const forgotPasswordController = async (req, res) => {
         const hashedPassword = await hashPassword(password);
 
         await userModel.findByIdAndUpdate(user._id, { password: hashedPassword });
+        console.log('Success in API call forgotPasswordController');
         res.status(200).send({
             success: true,
             message: 'Password changed successfully',
         });
     } catch (error) {
+      console.log('Failure in API call forgotPasswordController');
         res.status(500).send({
             success: false,
             message: 'Failed to change password',

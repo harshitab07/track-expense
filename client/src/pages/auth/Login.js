@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -41,6 +41,14 @@ const Login = () => {
         toast.error('Failed to login');
       }
   }
+
+  useEffect(() => {
+    if (auth?.token) {
+      navigate('/');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth?.token]);
+
   return (
     <Layout title='My-Cart Login'>
 <div className="form-container">
